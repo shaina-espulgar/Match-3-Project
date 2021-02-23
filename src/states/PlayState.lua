@@ -37,11 +37,11 @@ function PlayState:enter(params)
 
     self.level = params.level
 
-    self.board = params.board or Board(VIRTUAL_WIDTH - 272, 16)
+    self.board = params.board or Board(VIRTUAL_WIDTH - 272, 16, self.level)
 
     self.score = params.score or 0
 
-    self.scoreGoal = self.level * 1.25 * 1000
+    self.scoreGoal = self.level * 1 * 2500
 end
 
 function PlayState:update(dt)
@@ -238,7 +238,7 @@ function PlayState:mouseSelect()
     local drawX = highX - 1
     local drawY = highY - 1
     
-    love.graphics.setColor(64, 224, 208, 255)
+    love.graphics.setColor(6255/255, 165/255, 0/255, 255)
     -- draw actual cursor rect
     love.graphics.setLineWidth(2)       -- draw the 4 highlights orthogonally
 
@@ -289,9 +289,9 @@ function PlayState:render()
         end
 
     if self.rectHighlighted then
-        love.graphics.setColor(217/255, 87/255, 99/255, 1)
+        love.graphics.setColor(255/255, 127/255, 0/255, 1)
     else
-        love.graphics.setColor(172/255, 50/255, 50/255, 1)
+        love.graphics.setColor(255/255, 127/255, 0/255, 1)
     end
 
     love.graphics.setLineWidth(4)
@@ -301,7 +301,7 @@ function PlayState:render()
     love.graphics.setColor(56/255, 56/255, 56/255, 234/255)
     love.graphics.rectangle('fill', 16, 16, 186, 116, 4)
 
-    love.graphics.setColor(99/255, 155/255, 1, 1)
+    love.graphics.setColor(255/255, 165/255, 0/255, 1)
     love.graphics.setFont(gFonts['medium'])
     love.graphics.printf('Level: ' .. tostring(self.level), 20, 24, 182, 'center')
     love.graphics.printf('Score: ' .. tostring(self.score), 20, 52, 182, 'center')
