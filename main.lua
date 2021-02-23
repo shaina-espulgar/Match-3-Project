@@ -20,6 +20,8 @@ function love.load()
 
     love.window.setTitle('Match Haikyuu')
 
+    cursor = love.mouse.getCursor()
+    
     math.randomseed(os.time())
 
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
@@ -31,8 +33,8 @@ function love.load()
 
     -- set music to loop and start
     --UPDATE
-    --gSounds['music']:setLooping(true)
-    --gSounds['music']:play()
+    gSounds['music']:setLooping(true)
+    gSounds['music']:play()
 
     gStateMachine = StateMachine {
         ['start'] = function() return StartState() end,
@@ -63,6 +65,18 @@ function love.keyboard.wasPressed(key)
     end
 end
 
+function love.mousepressed(x, y, button, istouch, presses)
+    love.mouse.buttons[button] = true
+end
+
+function love.mouse.wasPressed(button)
+    if love.mouse.buttons[button] then
+        return true
+    else
+        return false
+    end
+end
+
 function love.update(dt)
     backgroundX = backgroundX - backgroundScrollSpeed * dt
     
@@ -73,12 +87,20 @@ function love.update(dt)
     gStateMachine:update(dt)
 
     love.keyboard.keysPressed = {}
+    love.mouse.buttons = {}
+
+    if love.mouse.isDown(2) then
+    print("normal: ")
+    print(love.mouse.getPosition())
+    print("game: ")
+    print(push:toGame(love.mouse.getPosition()))
+    end
 end
 
 function love.draw()
     push:start()
     --UPDATE!!!
-    --love.graphics.draw(gTextures['background'], backgroundX, 0)
+    love.graphics.draw(gTextures['background'], backgroundX, 0)
     
     gStateMachine:render()
     push:finish()
