@@ -1,6 +1,6 @@
 --[[
 
-    Match-3 Remake
+    Match-3 Remake with a theme of Haikyuu!!
 
 ]]
 
@@ -17,11 +17,11 @@ VIRTUAL_HEIGHT = 288
 BACKGROUND_SCROLL_SPEED = 80
 
 function love.load()
-
-    love.window.setTitle('Match Haikyuu')
+    
+    love.window.setTitle('Haikyuu Match!!')
 
     cursor = love.mouse.getCursor()
-    
+  
     math.randomseed(os.time())
 
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
@@ -31,8 +31,6 @@ function love.load()
         canvas = true
     })
 
-    -- set music to loop and start
-    --UPDATE
     gSounds['music']:setLooping(true)
     gSounds['music']:play()
 
@@ -45,7 +43,7 @@ function love.load()
     gStateMachine:change('start')
 
     backgroundX = 0
-    
+
     love.keyboard.keysPressed = {}
 end
 
@@ -54,6 +52,7 @@ function love.resize(w, h)
 end
 
 function love.keypressed(key)
+    
     love.keyboard.keysPressed[key] = true
 end
 
@@ -78,7 +77,8 @@ function love.mouse.wasPressed(button)
 end
 
 function love.update(dt)
-    backgroundX = backgroundX - backgroundScrollSpeed * dt
+    
+    backgroundX = backgroundX - BACKGROUND_SCROLL_SPEED * dt
     
     if backgroundX <= -1024 + VIRTUAL_WIDTH - 4 + 51 then
         backgroundX = 0
@@ -99,7 +99,7 @@ end
 
 function love.draw()
     push:start()
-    --UPDATE!!!
+
     love.graphics.draw(gTextures['background'], backgroundX, 0)
     
     gStateMachine:render()
