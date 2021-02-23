@@ -20,7 +20,7 @@ function BeginGameState:enter(def)
         self.board = Board(VIRTUAL_WIDTH - 272, 16, self.level)
     end
 
-    Timer.tween(1, {
+    Timer.tween(0.25, {
         [self] = {transitionAlpha = 0}
     })
 
@@ -32,7 +32,7 @@ function BeginGameState:enter(def)
         :finish(function()
             Timer.after(1, function()
 
-                Timer.tween(0.25, {
+                Timer.tween(0.5, {
                     [self] = {levelLabelY = VIRTUAL_HEIGHT + 30}
                 })
 
@@ -55,9 +55,9 @@ function BeginGameState:render()
 
     self.board:render()
 
-    love.graphics.setColor(95/255, 205/255, 228/255, 200/255)
+    love.graphics.setColor(232/255, 97/255, 0/255, 200/255)
     love.graphics.rectangle('fill', 0, self.levelLabelY - 8, VIRTUAL_WIDTH, 48)
-    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.setColor(220/255, 220/255, 220/255, 1)
     love.graphics.setFont(gFonts['large'])
     love.graphics.printf('Level ' .. tostring(self.level),
         0, self.levelLabelY, VIRTUAL_WIDTH, 'center')
