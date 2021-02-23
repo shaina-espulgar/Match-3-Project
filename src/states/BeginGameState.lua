@@ -7,9 +7,7 @@ BeginGameState = Class{__includes = BaseState}
 
 function BeginGameState:init()
     
-    self.transitionAlpha = 1
-
-    self.board = Board(VIRTUAL_WIDTH - 272, 16)
+    self.transitionAlpha = 255
 
     self.levelLabelY = -64
 end
@@ -17,6 +15,10 @@ end
 function BeginGameState:enter(def)
 
     self.level = def.level
+    self.board = Board(VIRTUAL_WIDTH - 272, 16, self.level)
+    while self.board:boardCheck() == false do
+        self.board = Board(VIRTUAL_WIDTH - 272, 16, self.level)
+    end
 
     Timer.tween(1, {
         [self] = {transitionAlpha = 0}
@@ -59,7 +61,7 @@ function BeginGameState:render()
     love.graphics.setFont(gFonts['large'])
     love.graphics.printf('Level ' .. tostring(self.level),
         0, self.levelLabelY, VIRTUAL_WIDTH, 'center')
-e
+
     love.graphics.setColor(1, 1, 1, self.transitionAlpha)
     love.graphics.rectangle('fill', 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT)
 end
